@@ -1,9 +1,11 @@
-import { LOG_IN, LOG_OUT, LOG_IN_FAILURE } from '../actions/SessionActions'
+import { LOG_IN, LOG_OUT, LOG_IN_FAILURE } from "../actions/SessionActions";
 
 const initialState = {
   user: null,
-  errorMsg: '',
-}
+  status: null,
+  id: null,
+  errorMsg: ""
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -11,22 +13,24 @@ export default (state = initialState, action) => {
       return {
         ...state,
         user: {
-          name: action.payload.name,
+          status: action.payload.status,
+          id: action.payload.id
         },
-        errorMsg: '',
-      }
+        errorMsg: ""
+      };
     case LOG_OUT:
       return {
         ...state,
         user: null,
-        errorMsg: '',
-      }
+        errorMsg: ""
+      };
     case LOG_IN_FAILURE:
       return {
         ...state,
-        errorMsg: action.payload.errorMsg,
-      }
+        status: action.payload.status,
+        errorMsg: action.payload.errorMsg
+      };
     default:
-      return state
+      return state;
   }
-}
+};
