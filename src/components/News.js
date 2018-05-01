@@ -1,16 +1,25 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
 
-const News = ({ data }) => {
-  return (
-    <div className={'news-list'}>
-      {data.length ? <p>"отрисовка новостей"</p> : <p>Новостей нет</p>}
-    </div>
-  )
+class News extends React.Component {
+  render() {
+    return (
+      <div className={"news-list"}>
+        {this.props.data.length
+          ? this.props.data.map(item => (
+              <div key={item.id}>
+                <h2>{item.title}</h2>
+                <article>{item.text}</article>
+              </div>
+            ))
+          : "Новостей нет"}
+      </div>
+    );
+  }
 }
 
 News.proptypes = {
-  data: PropTypes.array.isRequired,
-}
+  data: PropTypes.array.isRequired
+};
 
-export default News
+export default News;
