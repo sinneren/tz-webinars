@@ -6,7 +6,8 @@ class Login extends React.Component {
   state = {
     redirectToPreviousRoute: false,
     email: "",
-    password: ""
+    password: "",
+    err: false
   };
 
   handleSubmit = e => {
@@ -28,6 +29,19 @@ class Login extends React.Component {
     const value = e.currentTarget.value;
     const fieldName = e.currentTarget.dataset.fieldName;
 
+    if (fieldName === "email") {
+      const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var res = reg.exec(value);
+      if (res === null) {
+        this.setState({
+          err: true
+        });
+      } else {
+        this.setState({
+          err: false
+        });
+      }
+    }
     this.setState(prev => ({
       ...prev,
       [fieldName]: value
@@ -42,7 +56,7 @@ class Login extends React.Component {
     if (redirectToPreviousRoute) {
       return <Redirect to={from} />;
     }
-
+    const errEmail = <div className="err">Email is not correct</div>;
     return (
       <div>
         {errorMsg && <p>{errorMsg}</p>}
@@ -56,12 +70,15 @@ class Login extends React.Component {
           />
           <input
             data-field-name={"password"}
-            type={"text"}
+            type={"password"}
             onChange={this.handleChange}
             placeholder={"Пароль"}
             value={password}
           />
-          <button type="submit">Log in</button>
+          <button type="submit" disabled={this.state.err}>
+            Log in
+          </button>
+          {this.state.err ? errEmail : ""}
         </form>
       </div>
     );

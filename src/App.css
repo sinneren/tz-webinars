@@ -8,3 +8,9 @@
 .content {
   margin: 10px;
 }
+.err {
+  color: brown;
+  font-family: monospace;
+  margin-top: 5px;
+  font-size: 12px;
+}
