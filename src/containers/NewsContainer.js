@@ -11,7 +11,10 @@ class NewsContainer extends React.Component {
     this.getData();
   }
   render() {
-    return <News data={this.props.data.data} />;
+    console.log(this.props.data);
+    return (
+      <News data={this.props.data.data} error={this.props.data.errorMsg} />
+    );
   }
 }
 
